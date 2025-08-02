@@ -1,10 +1,10 @@
-use axum::{routing::get, Router};
+use axum::{http::StatusCode, routing::get, Json, Router};
 use tokio;
-
+use serde::Serialize;
 #[tokio::main]
 async fn main() {
     let app = Router::new()
-    .route("/", get(hello));
+    .route("/", get(hello_json));
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:4500")
     .await.unwrap();
@@ -12,6 +12,18 @@ async fn main() {
 }
 
 
-async fn hello()->&'static str{
-    "Hello, world!"
+// async fn hello()->&'static str{
+//     "Hello, world!"
+// }
+
+#[derive(Serialize)]
+struct Response {
+    message: &'static str,
+}
+
+async fn hello_json() ->(StatusCode, Json<Response>){
+    let response = Response{
+        message: "Hello,World!",
+    };
+    (StatusCode::OK, Json(response))
 }
