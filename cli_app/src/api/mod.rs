@@ -1,5 +1,7 @@
 pub mod handlers;
 pub mod v1;
+pub mod response;
+pub mod errors;
 
 use std::sync::Arc;
 use axum::Router;

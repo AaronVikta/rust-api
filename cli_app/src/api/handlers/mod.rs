@@ -1,4 +1,5 @@
 pub mod hello;
+pub mod posts;
 use crate::{api::v1, state::ApplicationState};
 use std::sync::Arc;
 use axum::Router;
